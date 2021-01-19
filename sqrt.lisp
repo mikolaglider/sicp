@@ -1,25 +1,20 @@
-(define (pow x) (* x x))
+(define (mySqrt x)
+    (define (pow a) (* a a))
 
-(define (abs x)
-    (if (< x 0) (- x) x))
- 
-; (define (abs x)
-;     (cond ((> x 0) x)
-;     ((= x 0) 0)
-;     ((< x 0) (- x))))
+    (define (abs a)
+        (if (< a 0) (- a) a))
 
-(define (is-enough guess x)
-    (< (abs (- (pow guess) x)) 0.001))
+    (define (avarage a b)
+        (/ (+ a b) 2))
 
-(define (avarage a b)
-    (/ (+ a b) 2))
+    (define (is-enough guess)
+        (< (abs (- (pow guess) x)) 0.001))
+    
+    (define (improve guess)
+        (avarage guess (/ x guess)))
 
-(define (improve guess x)
-    (avarage guess (/ x guess)))
+    (define (sqrt-iter guess)
+        (if (is-enough guess) guess
+        (sqrt-iter (improve guess))))
 
-(define (sqrt-iter guess x)
-    (if (is-enough guess x) guess
-    (sqrt-iter (improve guess x) x)))
-
-(define (sqrt x)
-    (sqrt-iter 1.0 x))
+    (sqrt-iter 1.0))
