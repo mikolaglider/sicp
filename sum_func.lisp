@@ -6,20 +6,15 @@
 (define (sum term next a b)
     (if (> a b) 0
         (+ (term a) (sum term next (next a) b))))
-(define (identity a) a)
-(define (inc a) (+ a 1))
-(define (cube a) (* a a))
-(define (pi-term a) (/ 1.0 (* a (+ a 2))))
-(define (pi-next a) (+ a 4))
 
 (define (int-sum a b) 
-  (sum identity inc a b))
+  (sum (lambda (x) x) (lambda (x) (+ x 1)) a b))
 
 (define (cube-sum a b) 
-  (sum cube inc a b))
+  (sum (lambda (x) (* x x)) (lambda (x) (+ x 1)) a b))
 
 (define (pi-sum a b)
-    (sum pi-term pi-next a b))
+    (sum (lambda (x) (/ 1.0 (* x (+ x 2)))) (lambda (x) (+ x 4)) a b))
 ;; END
 
 (check-equal? (int-sum 2 1) 0)
